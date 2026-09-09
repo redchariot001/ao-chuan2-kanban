@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>奥传2 角色制作排期</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e6e8ee;--mut:#8a91a0;--acc:#4ea1ff;--red:#ff5c5c;--org:#ffa94d;--grn:#51cf6e;--blu:#4ea1ff;--grey:#5c6370}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:20px}
+h1{font-size:20px;margin:0 0 4px}h1 small{color:var(--mut);font-weight:400;font-size:13px}
+.sub{color:var(--mut);font-size:12px;margin-bottom:16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.bar .grp{display:flex;gap:6px;flex-wrap:wrap}
+.bar label{color:var(--mut);font-size:12px;margin-right:4px;align-self:center}
+button{background:#222631;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-top:4px}
+legend i{font-style:normal;padding:2px 8px;border-radius:4px;color:#fff}
+.s-done{background:var(--grey)}.s-review{background:var(--red)}.s-make{background:var(--org)}.s-soon{background:var(--blu)}.s-far{background:#3a4252}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:#1d2129;color:var(--mut);font-weight:600;font-size:12px;position:sticky;top:0}
+tr:hover{background:#1c212c}
+tr.today td{border-top:2px solid var(--acc);border-bottom:2px solid var(--acc);background:#162033}
+.st{padding:2px 7px;border-radius:4px;color:#fff;font-size:11px;font-weight:600}
+.nm{font-weight:600}
+.note{color:var(--mut);font-size:11px}
+.overdue{color:var(--red);font-weight:600}
+.miss{color:var(--org)}
+@keyframes pulse{0%,100%{opacity:1}50%,0%{opacity:0.5}}
+@media(max-width:680px){.bar{flex-direction:column;align-items:flex-start}th,td{padding:6px}}
+.nav-bar{display:flex;gap:12px;margin-bottom:16px}
+.nav-bar a{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 16px;color:var(--txt);text-decoration:none;font-size:13px;transition:all .2s}
+.nav-bar a:hover{border-color:var(--acc);color:var(--acc)}
+.nav-bar a.active{background:var(--acc);border-color:var(--acc);color:#fff}
+.alert{background:#1f1a0f;border:1px solid var(--org);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px}
+.alert b{color:var(--org)}
+</style></head><body><div class="wrap">
+<div class="nav-bar"><a href="index.html">📊 项目看板</a><a href="schedule.html" class="active">📅 角色排期表</a></div>
+<h1>奥特曼传奇英雄2 · 角色制作排期 <small>· 2026.9 ~ 2027.2</small></h1>
+<div class="sub">数据源：石头提供的2026年角色制作人员排期表 · 今日基准 2026-09-09（8.14版本已上线） · 监修规则：上线前14天提交版权方审核 · 制作周期：限定35天/传说56天/通行证42天/签到40天/酒馆21天</div>
+
+<div class="alert">
+  <b>📌 当前版本：8.14（已上线）</b> — 奈克萨斯成年形态(倪剑波)、塔伊兰特(张备羽) 已上线，已从排期中移除。
+  <br>剩余 <b>23条记录</b>，9月~次年2月待上线。<b>9.3变更：</b>新增星河之奕·塔尔塔罗斯版本+双人排位(9.30，李羽翔、张备羽)、星河之奕·新人专属赛季(10.30，李羽翔、唐志伟)、传说战令(11.27，杨于扬)；黑暗奥特杀手提前至11.27(张智)；博伽茹制作人变更为张备羽。
+</div>
+
+<div class="bar">
+  <div class="grp"><label>制作人</label>
+    <button class="on" data-f="maker" data-v="ALL">全部</button>
+    <button data-f="maker" data-v="倪磊">倪磊(石头)</button>
+    <button data-f="maker" data-v="倪剑波">倪剑波</button>
+    <button data-f="maker" data-v="张智">张智</button>
+    <button data-f="maker" data-v="李羽翔">李羽翔</button>
+    <button data-f="maker" data-v="张备羽">张备羽</button>
+    <button data-f="maker" data-v="唐志伟">唐志伟</button>
+    <button data-f="maker" data-v="杨于扬">杨于扬</button>
+  </div>
+  <div class="grp"><label>类型</label>
+    <button class="on" data-f="type" data-v="ALL">全部</button>
+    <button data-f="type" data-v="限定">限定</button>
+    <button data-f="type" data-v="通行证">通行证</button>
+    <button data-f="type" data-v="签到">签到</button>
+    <button data-f="type" data-v="酒馆">酒馆</button>
+    <button data-f="type" data-v="世界首领">世界首领</button>
+    <button data-f="type" data-v="钻石卡包">钻石卡包</button>
+    <button data-f="type" data-v="战令">战令</button>
+    <button data-f="type" data-v="活动">活动</button>
+  </div>
+</div>
+<legend>状态图例：
+  <i class="s-review">监修窗口(上线-14天已到)</i>
+  <i class="s-make">制作冲刺(制作启动deadline已过)</i>
+  <i class="s-soon">即将启动(30天内开工)</i>
+  <i class="s-far">远期</i>
+</legend>
+<table id="t"><thead><tr>
+  <th>上线日</th><th>角色/内容</th><th>类型</th><th>稀有度</th><th>制作人</th><th>周期</th><th>制作启动deadline</th><th>监修提交deadline</th><th>状态</th><th>备注</th>
+</tr></thead><tbody></tbody></table>
+<div class="sub" style="margin-top:14px">说明：监修提交deadline=上线日-14天，逾期标红。制作启动deadline=上线日-制作周期。8.14版本已上线的角色已剔除。红色数字标记表示截图里特别标注的角色。</div>
+</div>
+<script>
+var DATA = [
+{"launch":"2026-09-04","launchShort":"9.4","weekday":"五","name":"欧布重光","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"签到版","makeStart":"2026-07-26","reviewDDL":"2026-08-21","status":"review","statusLabel":"监修窗口"},
+{"launch":"2026-09-17","launchShort":"9.17","weekday":"四","name":"佩丹尼姆杰顿","type":"2V2兑换商店","rarity":"超凡","maker":"张备羽","cycle":21,"note":"2V2兑换","makeStart":"2026-08-27","reviewDDL":"2026-09-03","status":"review","statusLabel":"监修窗口"},
+{"launch":"2026-09-24","launchShort":"9.24","weekday":"四","name":"泽塔伽马未来","type":"限定","rarity":"超凡","maker":"倪磊","cycle":35,"note":"红字标记","makeStart":"2026-08-20","reviewDDL":"2026-09-10","status":"make","statusLabel":"制作冲刺"},
+{"launch":"2026-09-24","launchShort":"9.24","weekday":"四","name":"扎姆夏","type":"通行证","rarity":"超凡","maker":"张智","cycle":42,"note":"","makeStart":"2026-08-13","reviewDDL":"2026-09-10","status":"make","statusLabel":"制作冲刺"},
+{"launch":"2026-09-30","launchShort":"9.30","weekday":"三","name":"巴巴鲁星人","type":"酒馆","rarity":"稀有","maker":"倪磊","cycle":21,"note":"红字标记","makeStart":"2026-09-09","reviewDDL":"2026-09-16","status":"make","statusLabel":"制作冲刺"},
+{"launch":"2026-09-30","launchShort":"9.30","weekday":"三","name":"星河之奕·塔尔塔罗斯版本+双人排位","type":"活动","rarity":"—","maker":"李羽翔、张备羽","cycle":null,"note":"9.30上线，最迟可延期至10.16","makeStart":"","reviewDDL":"2026-09-16","status":"far","statusLabel":"远期"},
+{"launch":"2026-09-30","launchShort":"9.30","weekday":"三","name":"捷德终极","type":"世界首领","rarity":"传说","maker":"李羽翔","cycle":56,"note":"红字标记·提德终极形态","makeStart":"2026-08-05","reviewDDL":"2026-09-16","status":"make","statusLabel":"制作冲刺"},
+{"launch":"2026-10-16","launchShort":"10.16","weekday":"五","name":"泽塔阿尔法装甲","type":"签到","rarity":"卓越","maker":"张备羽","cycle":40,"note":"","makeStart":"2026-09-06","reviewDDL":"2026-10-02","status":"make","statusLabel":"制作冲刺"},
+{"launch":"2026-10-30","launchShort":"10.30","weekday":"五","name":"星河之奕·新人专属赛季","type":"活动","rarity":"—","maker":"李羽翔、唐志伟","cycle":null,"note":"新人专属赛季模块","makeStart":"","reviewDDL":"2026-10-16","status":"far","statusLabel":"远期"},
+{"launch":"2026-10-30","launchShort":"10.30","weekday":"五","name":"银河斯特利姆","type":"限定","rarity":"超凡","maker":"倪剑波","cycle":35,"note":"","makeStart":"2026-09-25","reviewDDL":"2026-10-16","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-06","launchShort":"11.6","weekday":"五","name":"迪亚波罗","type":"通行证","rarity":"超凡","maker":"张智","cycle":42,"note":"小金牛","makeStart":"2026-09-25","reviewDDL":"2026-10-23","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-20","launchShort":"11.20","weekday":"五","name":"博伽茹","type":"活动","rarity":"卓越","maker":"张备羽","cycle":null,"note":"大怪兽格斗·制作人已变更(原张智)","reviewDDL":"2026-11-06","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"德凯强力形态","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"原哉阿斯已替换","makeStart":"2026-10-18","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
+{"launch":"2026-12-04","launchShort":"12.4","weekday":"五","name":"欧布暗耀","type":"限定","rarity":"超凡","maker":"倪剑波","cycle":35,"note":"","makeStart":"2026-10-30","reviewDDL":"2026-11-20","status":"far","statusLabel":"远期"},
+{"launch":"2026-12-18","launchShort":"12.18","weekday":"五","name":"金古桥军械库定制","type":"通行证","rarity":"超凡","maker":"倪磊","cycle":42,"note":"红字标记","makeStart":"2026-11-06","reviewDDL":"2026-12-04","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"黑暗奥特杀手","type":"传说赛季通行证","rarity":"传说","maker":"张智","cycle":56,"note":"暂定提前至11.27(原12.25)","makeStart":"2026-10-02","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"传说战令","type":"战令","rarity":"传说","maker":"杨于扬","cycle":null,"note":"传说战令活动","makeStart":"","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-01","launchShort":"1.1","weekday":"五","name":"提欧","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"原戴拿奇迹已替换","makeStart":"2026-11-22","reviewDDL":"2026-12-18","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-01","launchShort":"1.1","weekday":"五","name":"巴克西姆","type":"酒馆","rarity":"稀有","maker":"张备羽","cycle":21,"note":"","makeStart":"2026-12-11","reviewDDL":"2026-12-18","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-08","launchShort":"1.8","weekday":"五","name":"泰迦三重斯特利姆","type":"限定","rarity":"传说","maker":"倪磊","cycle":56,"note":"黄底标记","makeStart":"2026-11-13","reviewDDL":"2026-12-25","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-29","launchShort":"1.29","weekday":"五","name":"鲁格赛特","type":"通行证","rarity":"超凡","maker":"张智","cycle":42,"note":"原斯兰星人已替换","makeStart":"2026-12-18","reviewDDL":"2027-01-15","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-29","launchShort":"1.29","weekday":"五","name":"凤凰梦比优斯","type":"钻石卡包","rarity":"传说","maker":"倪剑波","cycle":56,"note":"钻石卡包获取","makeStart":"2026-12-04","reviewDDL":"2027-01-15","status":"far","statusLabel":"远期"},
+{"launch":"2027-02-12","launchShort":"2.12","weekday":"五","name":"戴拿奇迹","type":"签到","rarity":"卓越","maker":"倪剑波","cycle":40,"note":"","makeStart":"2027-01-03","reviewDDL":"2027-01-29","status":"far","statusLabel":"远期"}
+];
+var today = "2026-09-09";
+var fm = "ALL", ft = "ALL";
+function cls(s){return "s-"+s}
+function row(r){
+  var reviewOverdue = (r.status==="review")?"overdue":"";
+  var makeMissed = (r.makeStart && r.makeStart < today && r.status==="make")?"miss":"";
+  var cells = [
+    r.launchShort+"("+r.weekday+")",
+    '<span class="nm">'+r.name+'</span>',
+    r.type, r.rarity,
+    '<span>'+r.maker+'</span>',
+    r.cycle?r.cycle+"天":"—",
+    r.makeStart||"—",
+    '<span class="'+reviewOverdue+'">'+r.reviewDDL+'</span>',
+    '<span class="st '+cls(r.status)+'">'+r.statusLabel+'</span>',
+    '<span class="note">'+(r.note||"")+'</span>'
+  ];
+  var isTodayRow = (r.launch===today) ? " today":"";
+  return "<tr class='"+r.status+isTodayRow+"'><td>"+cells.join("</td><td>")+"</td></tr>";
+}
+function render(){
+  var tb=document.querySelector("#t tbody");
+  tb.innerHTML = DATA.filter(function(r){
+    if(fm!=="ALL" && r.maker.indexOf(fm)<0) return false;
+    if(ft!=="ALL" && r.type.indexOf(ft)<0) return false;
+    return true;
+  }).map(row).join("");
+}
+document.querySelectorAll(".bar button").forEach(function(b){
+  b.onclick=function(){
+    var f=b.dataset.f, v=b.dataset.v;
+    document.querySelectorAll('[data-f="'+f+'"]').forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");
+    if(f==="maker")fm=v; else ft=v;
+    render();
+  };
+});
+render();
+</script></body></html>
