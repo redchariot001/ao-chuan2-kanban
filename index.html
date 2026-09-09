@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥特曼传奇英雄2 - 项目进度看板</title>
+<style>
+:root {
+  --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+  --text: #e2e4e9; --sub: #8b8fa7; --accent: #4fc3f7;
+  --warn: #ffb74d; --danger: #ef5350; --success: #66bb6a;
+  --super: #e040fb; --legend: #ffd740; --excellent: #4fc3f7; --rare: #81c784;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,"Microsoft YaHei",sans-serif; padding:24px; min-height:100vh; }
+h1 { font-size:20px; margin-bottom:4px; }
+.subtitle { color:var(--sub); font-size:12px; margin-bottom:20px; }
+.nav-bar { display:flex; gap:12px; margin-bottom:20px; }
+.nav-bar a { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text); text-decoration:none; font-size:13px; transition:all .2s; }
+.nav-bar a:hover { border-color:var(--accent); color:var(--accent); }
+.nav-bar a.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.stats { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.stat-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 18px; min-width:130px; }
+.stat-card .num { font-size:28px; font-weight:700; }
+.stat-card .label { font-size:11px; color:var(--sub); margin-top:2px; }
+.stat-card.warn { border-color:var(--warn); } .stat-card.warn .num { color:var(--warn); }
+.stat-card.danger { border-color:var(--danger); } .stat-card.danger .num { color:var(--danger); }
+.stat-card.success { border-color:var(--success); } .stat-card.success .num { color:var(--success); }
+.section-title { font-size:15px; font-weight:600; margin:24px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+.badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:600; }
+.badge-legend { background:#3e3000; color:var(--legend); }
+.badge-super { background:#2a1035; color:var(--super); }
+.badge-excellent { background:#0d2137; color:var(--excellent); }
+.badge-rare { background:#0f2a14; color:var(--rare); }
+.badge-boss { background:#350a0a; color:var(--danger); }
+.badge-system { background:#1a2330; color:var(--accent); }
+.team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:14px; margin-bottom:20px; }
+.person-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.person-card.highlight { border-color:var(--accent); }
+.person-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.person-name { font-size:15px; font-weight:600; }
+.person-count { font-size:12px; color:var(--sub); }
+.task { display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; }
+.task:last-child { border-bottom:none; }
+.task-date { min-width:42px; font-weight:600; color:var(--accent); font-size:12px; }
+.task-date.urgent { color:var(--danger); animation:pulse 1.5s infinite; }
+.task-date.warning { color:var(--warn); }
+.task-role { flex:1; }
+.task-note { font-size:10px; color:var(--sub); }
+.tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:9px; margin-left:4px; }
+.tag-new { background:#1b3a1b; color:var(--success); }
+.tag-hot { background:#3e2000; color:var(--warn); }
+.tag-datefix { background:#2a1035; color:var(--super); }
+.timeline { margin-bottom:20px; }
+.timeline-month { margin-bottom:14px; }
+.timeline-month-header {
+  background:var(--card); border:1px solid var(--border); border-radius:8px;
+  padding:10px 14px; font-weight:600; font-size:14px; margin-bottom:6px;
+}
+.timeline-month-header .icon { margin-right:6px; }
+.timeline-month-header.important { border-color:var(--warn); background:#1f1a0f; }
+.timeline-month-header.current { border-color:var(--accent); background:#0d1a2e; }
+.timeline-items { display:flex; flex-wrap:wrap; gap:6px; padding-left:8px; }
+.timeline-item {
+  background:var(--card); border:1px solid var(--border); border-radius:6px;
+  padding:6px 10px; font-size:12px; display:flex; align-items:center; gap:6px;
+}
+.timeline-item .dot { width:6px; height:6px; border-radius:50%; }
+.timeline-item .dot.red { background:var(--danger); }
+.timeline-item .dot.orange { background:var(--warn); }
+.timeline-item .dot.blue { background:var(--accent); }
+.timeline-item .dot.green { background:var(--success); }
+.timeline-item .dot.grey { background:var(--sub); }
+.alert-box { background:#1f0f0f; border:1px solid var(--danger); border-radius:8px; padding:12px 16px; margin-bottom:16px; }
+.alert-box h3 { color:var(--danger); font-size:13px; margin-bottom:6px; }
+.alert-box ul { font-size:12px; padding-left:18px; }
+.alert-box li { margin:3px 0; }
+.alert-box.warn { background:#1f1a0f; border-color:var(--warn); }
+.alert-box.warn h3 { color:var(--warn); }
+.update-info { font-size:11px; color:var(--sub); margin-top:24px; text-align:center; border-top:1px solid var(--border); padding-top:12px; }
+@keyframes pulse { 0%,100%{opacity:1} 50%,0%{opacity:0.5} }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html" class="active">📊 项目看板</a>
+  <a href="schedule.html">📅 角色排期表</a>
+</div>
+
+<h1>⚔️ 奥特曼传奇英雄2 · 项目进度看板</h1>
+<div class="subtitle">数据源：石头提供的2026年角色制作人员排期表 + 9.3/9.9变更指令 | 当前版本：9.4（欧布重光已上线） | 今日基准 9月9日</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card warn">
+    <div class="num">7</div>
+    <div class="label">9月待上线</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">10</div>
+    <div class="label">10-12月待交付</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">4</div>
+    <div class="label">2027年1月待交付</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">2</div>
+    <div class="label">2027年2月待交付</div>
+  </div>
+  <div class="stat-card success">
+    <div class="num">23</div>
+    <div class="label">未上线内容总数</div>
+  </div>
+</div>
+
+<!-- Urgent alerts -->
+<div class="alert-box">
+  <h3>⚠️ 紧急节点</h3>
+  <ul>
+    <li><b>9.9</b> 巴巴鲁星人 制作启动deadline（倪磊）— <b>今天！</b></li>
+    <li><b>9.16</b> 星河之奕(塔尔塔罗斯+双人排位) / 捷德终极 监修deadline（李羽翔、张备羽）— 倒计时 <b>7天</b></li>
+    <li><b>9.24</b> 扎姆夏 / 泽塔伽马未来 上线（15天后）</li>
+    <li><b>9.30</b> 巴巴鲁星人+捷德终极+星河之奕 上线（21天后）</li>
+  </ul>
+</div>
+
+<!-- Personnel -->
+<div class="section-title">👥 制作人任务分配（9月 ~ 2027.2）</div>
+<div class="team-grid">
+
+<!-- 倪剑波 -->
+<div class="person-card highlight">
+  <div class="person-header">
+    <span class="person-name">倪剑波</span>
+    <span class="person-count">4个角色</span>
+  </div>
+  <div class="task"><span class="task-date">10.30</span><span class="task-role">银河斯特利姆</span><span class="badge badge-super">限定·超凡</span><span class="task-note">35天</span></div>
+  <div class="task"><span class="task-date">12.4</span><span class="task-role">欧布暗耀</span><span class="badge badge-super">限定·超凡</span><span class="task-note">35天</span></div>
+  <div class="task"><span class="task-date">1.29</span><span class="task-role">凤凰梦比优斯</span><span class="badge badge-legend">钻石卡包·传说</span><span class="task-note">56天</span><span class="tag tag-new">新增</span></div>
+  <div class="task"><span class="task-date">2.12</span><span class="task-role">戴拿奇迹</span><span class="badge badge-excellent">签到·卓越</span><span class="task-note">40天</span><span class="tag tag-new">新增</span></div>
+</div>
+
+<!-- 倪磊 -->
+<div class="person-card highlight">
+  <div class="person-header">
+    <span class="person-name">倪磊（石头）</span>
+    <span class="person-count">4个角色</span>
+  </div>
+  <div class="task"><span class="task-date warning">9.24</span><span class="task-role">泽塔伽马未来</span><span class="badge badge-super">限定·超凡</span><span class="task-note">35天</span></div>
+  <div class="task"><span class="task-date warning">9.30</span><span class="task-role">巴巴鲁星人</span><span class="badge badge-rare">酒馆·稀有</span><span class="task-note">21天</span></div>
+  <div class="task"><span class="task-date">12.18</span><span class="task-role">金古桥军械库定制</span><span class="badge badge-super">通行证·超凡</span><span class="task-note">42天</span></div>
+  <div class="task"><span class="task-date">1.8</span><span class="task-role">泰迦三重斯特利姆</span><span class="badge badge-legend">限定·传说</span><span class="task-note">56天</span></div>
+</div>
+
+<!-- 张智 -->
+<div class="person-card">
+  <div class="person-header">
+    <span class="person-name">张智</span>
+    <span class="person-count">4个角色</span>
+  </div>
+  <div class="task"><span class="task-date warning">9.24</span><span class="task-role">扎姆夏</span><span class="badge badge-super">通行证·超凡</span><span class="task-note">42天</span></div>
+  <div class="task"><span class="task-date">11.6</span><span class="task-role">迪亚波罗</span><span class="badge badge-super">通行证·超凡</span><span class="task-note">42天 · 小金牛</span></div>
+  <div class="task"><span class="task-date">11.27</span><span class="task-role">黑暗奥特杀手</span><span class="badge badge-legend">传说赛季通行证·传说</span><span class="task-note">56天 · 暂定提前(原12.25)</span><span class="tag tag-datefix">提前</span></div>
+  <div class="task"><span class="task-date">1.29</span><span class="task-role">鲁格赛特</span><span class="badge badge-super">通行证·超凡</span><span class="task-note">42天 · 原斯兰星人</span><span class="tag tag-new">替换</span></div>
+</div>
+
+<!-- 李羽翔 -->
+<div class="person-card">
+  <div class="person-header">
+    <span class="person-name">李羽翔</span>
+    <span class="person-count">6项任务</span>
+  </div>
+  <div class="task"><span class="task-date warning">9.4</span><span class="task-role">欧布重光</span><span class="badge badge-excellent">签到·卓越</span><span class="task-note">40天 · 签到版</span></div>
+  <div class="task"><span class="task-date warning">9.30</span><span class="task-role">星河之奕·塔尔塔罗斯+双人排位</span><span class="badge badge-system">活动</span><span class="task-note">与张备羽</span><span class="tag tag-new">新增</span></div>
+  <div class="task"><span class="task-date warning">9.30</span><span class="task-role">捷德终极</span><span class="badge badge-boss">世界首领·传说</span><span class="task-note">56天 · 提德终极形态</span></div>
+  <div class="task"><span class="task-date">10.30</span><span class="task-role">星河之奕·新人专属赛季</span><span class="badge badge-system">活动</span><span class="task-note">与唐志伟</span><span class="tag tag-new">新增</span></div>
+  <div class="task"><span class="task-date">11.27</span><span class="task-role">德凯强力形态</span><span class="badge badge-excellent">签到·卓越</span><span class="task-note">40天 · 原哉阿斯</span></div>
+  <div class="task"><span class="task-date">1.1</span><span class="task-role">提欧</span><span class="badge badge-excellent">签到·卓越</span><span class="task-note">40天 · 原戴拿奇迹</span><span class="tag tag-new">替换</span></div>
+</div>
+
+<!-- 张备羽 -->
+<div class="person-card">
+  <div class="person-header">
+    <span class="person-name">张备羽</span>
+    <span class="person-count">5项任务</span>
+  </div>
+  <div class="task"><span class="task-date warning">9.17</span><span class="task-role">佩丹尼姆杰顿</span><span class="badge badge-super">2V2兑换·超凡</span><span class="task-note">21天 · 2V2兑换</span></div>
+  <div class="task"><span class="task-date warning">9.30</span><span class="task-role">星河之奕·塔尔塔罗斯+双人排位</span><span class="badge badge-system">活动</span><span class="task-note">与李羽翔</span><span class="tag tag-new">新增</span></div>
+  <div class="task"><span class="task-date">10.16</span><span class="task-role">泽塔阿尔法装甲</span><span class="badge badge-excellent">签到·卓越</span><span class="task-note">40天</span></div>
+  <div class="task"><span class="task-date">11.20</span><span class="task-role">博伽茹</span><span class="badge badge-excellent">活动·卓越</span><span class="task-note">大怪兽格斗 · 原张智</span><span class="tag tag-new">变更</span></div>
+  <div class="task"><span class="task-date">1.1</span><span class="task-role">巴克西姆</span><span class="badge badge-rare">酒馆·稀有</span><span class="task-note">21天</span></div>
+</div>
+
+<!-- 唐志伟 -->
+<div class="person-card">
+  <div class="person-header">
+    <span class="person-name">唐志伟</span>
+    <span class="person-count">1项任务</span>
+  </div>
+  <div class="task"><span class="task-date">10.30</span><span class="task-role">星河之奕·新人专属赛季</span><span class="badge badge-system">活动</span><span class="task-note">与李羽翔</span><span class="tag tag-new">新增</span></div>
+</div>
+
+<!-- 杨于扬 -->
+<div class="person-card">
+  <div class="person-header">
+    <span class="person-name">杨于扬</span>
+    <span class="person-count">1项任务</span>
+  </div>
+  <div class="task"><span class="task-date">11.27</span><span class="task-role">传说战令</span><span class="badge badge-legend">战令·传说</span><span class="task-note">传说战令活动</span><span class="tag tag-new">新增</span></div>
+</div>
+
+</div>
+
+<!-- Timeline -->
+<div class="section-title">📅 更新节点时间线（2026.9 ~ 2027.2）</div>
+<div class="timeline">
+
+<div class="timeline-month">
+  <div class="timeline-month-header current">🗓️ 9月 — 欧布重光+佩丹尼姆+扎姆夏+泽塔伽马+星河之奕+巴巴鲁+捷德终极</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot orange"></span>9.4 欧布重光(李羽翔) <span class="tag tag-hot">签到</span></div>
+    <div class="timeline-item"><span class="dot orange"></span>9.17 佩丹尼姆杰顿(张备羽) <span class="tag tag-hot">2V2兑换</span></div>
+    <div class="timeline-item"><span class="dot orange"></span>9.24 扎姆夏(张智) <span class="tag tag-hot">通行证</span></div>
+    <div class="timeline-item"><span class="dot orange"></span>9.24 泽塔伽马未来(倪磊) <span class="tag tag-hot">限定</span></div>
+    <div class="timeline-item"><span class="dot green"></span>9.30 星河之奕·塔尔塔罗斯+双人排位(李羽翔/张备羽) <span class="tag tag-new">新增活动</span></div>
+    <div class="timeline-item"><span class="dot red"></span>9.30 巴巴鲁星人(倪磊) <span class="tag tag-hot">酒馆</span></div>
+    <div class="timeline-item"><span class="dot red"></span>9.30 捷德终极(李羽翔) <span class="tag tag-hot">世界首领·传说</span></div>
+  </div>
+</div>
+
+<div class="timeline-month">
+  <div class="timeline-month-header">🗓️ 10月 — 泽塔阿尔法装甲+银河斯特利姆+星河之奕新人赛季</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot blue"></span>10.16 泽塔阿尔法装甲(张备羽) <span class="tag tag-hot">签到</span></div>
+    <div class="timeline-item"><span class="dot green"></span>10.30 星河之奕·新人专属赛季(李羽翔/唐志伟) <span class="tag tag-new">新增活动</span></div>
+    <div class="timeline-item"><span class="dot orange"></span>10.30 银河斯特利姆(倪剑波) <span class="tag tag-hot">限定</span></div>
+  </div>
+</div>
+
+<div class="timeline-month">
+  <div class="timeline-month-header">🗓️ 11月 — 迪亚波罗+博伽茹+黑暗奥特杀手+德凯+传说战令</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot blue"></span>11.6 迪亚波罗(张智) <span class="tag tag-hot">通行证</span></div>
+    <div class="timeline-item"><span class="dot blue"></span>11.20 博伽茹(张备羽) <span class="tag tag-datefix">制作人变更</span></div>
+    <div class="timeline-item"><span class="dot red"></span>11.27 黑暗奥特杀手(张智) <span class="tag tag-hot">传说赛季通行证·传说</span> <span class="tag tag-datefix">暂定提前(原12.25)</span></div>
+    <div class="timeline-item"><span class="dot blue"></span>11.27 德凯强力形态(李羽翔) <span class="tag tag-hot">签到</span></div>
+    <div class="timeline-item"><span class="dot green"></span>11.27 传说战令(杨于扬) <span class="tag tag-new">新增活动</span></div>
+  </div>
+</div>
+
+<div class="timeline-month">
+  <div class="timeline-month-header">🗓️ 12月 — 欧布暗耀+金古桥</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot orange"></span>12.4 欧布暗耀(倪剑波) <span class="tag tag-hot">限定</span></div>
+    <div class="timeline-item"><span class="dot orange"></span>12.18 金古桥军械库定制(倪磊) <span class="tag tag-hot">通行证</span></div>
+  </div>
+</div>
+
+<div class="timeline-month">
+  <div class="timeline-month-header important">⭐ 2027.1月 — 提欧+巴克西姆+泰迦三重+鲁格赛特+凤凰梦比优斯</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot blue"></span>1.1 提欧(李羽翔) <span class="tag tag-hot">签到</span></div>
+    <div class="timeline-item"><span class="dot blue"></span>1.1 巴克西姆(张备羽) <span class="tag tag-hot">酒馆</span></div>
+    <div class="timeline-item"><span class="dot red"></span>1.8 泰迦三重斯特利姆(倪磊) <span class="tag tag-hot">传说限定</span></div>
+    <div class="timeline-item"><span class="dot blue"></span>1.29 鲁格赛特(张智) <span class="tag tag-hot">通行证</span></div>
+    <div class="timeline-item"><span class="dot red"></span>1.29 凤凰梦比优斯(倪剑波) <span class="tag tag-hot">钻石卡包·传说</span></div>
+  </div>
+</div>
+
+<div class="timeline-month">
+  <div class="timeline-month-header important">⭐ 2027.2月 — 戴拿奇迹</div>
+  <div class="timeline-items">
+    <div class="timeline-item"><span class="dot blue"></span>2.12 戴拿奇迹(倪剑波) <span class="tag tag-hot">签到</span></div>
+  </div>
+</div>
+
+</div>
+
+<!-- Activity Calendar -->
+<div class="section-title">🎪 更新活动日历（8月~12月）</div>
+<div class="sub" style="margin-bottom:14px">数据源：2026年传奇2更新日历Excel | 制作人员待分配 | 绿=已在角色排期表 | 蓝=签到 | 金=限定奖池 | 橙=通行证/扭蛋/付费 | 黄=节日活动 | 红=系统更新 | 紫=卡池/心愿/红卡 | 灰=碎片</div>
+
+<style>
+.act-month{margin-bottom:14px}
+.act-month-h{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-weight:600;font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.act-month-h.current{border-color:var(--accent);background:#0d1a2e}
+.act-items{display:flex;flex-wrap:wrap;gap:5px;padding-left:6px}
+.act-item{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:4px 9px;font-size:11px;display:flex;align-items:center;gap:5px}
+.act-item .ad{font-weight:700;color:var(--accent);min-width:36px;font-size:11px}
+.act-item .at{padding:1px 5px;border-radius:3px;font-size:9px;font-weight:600;color:#fff}
+.at-role{background:#1b3a1b;color:var(--success)}
+.at-sign{background:#0d2137;color:var(--excellent)}
+.at-limited{background:#3e3000;color:var(--legend)}
+.at-pass{background:#3e2000;color:var(--warn)}
+.at-event{background:#3e3000;color:#ffd740}
+.at-sys{background:#350a0a;color:var(--danger)}
+.at-gacha{background:#2a1035;color:var(--super)}
+.at-frag{background:#1a2330;color:var(--sub)}
+</style>
+
+<div class="act-month">
+  <div class="act-month-h current">🗓️ 8月（下半月）</div>
+  <div class="act-items">
+    <div class="act-item"><span class="ad">8.21</span><span class="at at-limited">限定</span>红奈奖池(超凡)</div>
+    <div class="act-item"><span class="ad">8.21</span><span class="at at-gacha">卡池</span>GV回归大奖池</div>
+    <div class="act-item"><span class="ad">8.28</span><span class="at at-gacha">红卡</span>托雷基亚红卡卡池</div>
+    <div class="act-item"><span class="ad">8.28</span><span class="at at-frag">碎片</span>托雷基亚角色碎片活动</div>
+  </div>
+</div>
+
+<div class="act-month">
+  <div class="act-month-h">🗓️ 9月</div>
+  <div class="act-items">
+    <div class="act-item"><span class="ad">9.4</span><span class="at at-sign">签到</span>签到欧布重光(卓越)</div>
+    <div class="act-item"><span class="ad">9.11</span><span class="at at-gacha">心愿</span>捷德尊皇进心愿池</div>
+    <div class="act-item"><span class="ad">9.17</span><span class="at at-pass">付费</span>30元星图宝藏</div>
+    <div class="act-item"><span class="ad">9.17</span><span class="at at-sys">PVP</span>2V2新角色·佩丹尼姆杰顿(超凡)</div>
+    <div class="act-item"><span class="ad">9.24</span><span class="at at-limited">限定</span>泽塔伽马未来奖池(超凡)</div>
+    <div class="act-item"><span class="ad">9.24</span><span class="at at-pass">通行证</span>扎姆夏通行证(超凡)</div>
+    <div class="act-item"><span class="ad">9.24</span><span class="at at-event">节日</span>中秋活动</div>
+    <div class="act-item"><span class="ad">9.24</span><span class="at at-gacha">卡池</span>维克特利骑士回归大奖池</div>
+    <div class="act-item"><span class="ad">9.30</span><span class="at at-role">首领</span>新世界首领+捷德终极(传说)</div>
+    <div class="act-item"><span class="ad">9.30</span><span class="at at-event">节日</span>国庆活动</div>
+    <div class="act-item"><span class="ad">9.30</span><span class="at at-pass">付费</span>自选变身器</div>
+    <div class="act-item"><span class="ad">9.30</span><span class="at at-role">酒馆</span>怪兽酒馆巴巴尔星人(稀有)</div>
+    <div class="act-item"><span class="ad">9.30</span><span class="at at-event">活动</span>星河之奕·塔尔塔罗斯版本+双人排位 <span style="color:var(--success)">李羽翔/张备羽 · 最迟10.16</span></div>
+  </div>
+</div>
+
+<div class="act-month">
+  <div class="act-month-h">🗓️ 10月</div>
+  <div class="act-items">
+    <div class="act-item"><span class="ad">10.9</span><span class="at at-gacha">红卡</span>黑龙红卡卡池</div>
+    <div class="act-item"><span class="ad">10.9</span><span class="at at-frag">碎片</span>黑龙角色碎片活动</div>
+    <div class="act-item"><span class="ad">10.16</span><span class="at at-sign">签到</span>签到泽塔阿尔法装甲(卓越)</div>
+    <div class="act-item"><span class="ad">10.23</span><span class="at at-gacha">心愿</span>高斯日蚀进心愿池</div>
+    <div class="act-item"><span class="ad">10.30</span><span class="at at-limited">限定</span>银河斯特里姆奖池(超凡)</div>
+    <div class="act-item"><span class="ad">10.30</span><span class="at at-gacha">卡池</span>希卡利骑士回归大奖池</div>
+    <div class="act-item"><span class="ad">10.30</span><span class="at at-event">活动</span>星河之奕·新人专属赛季 <span style="color:var(--success)">李羽翔/唐志伟</span></div>
+  </div>
+</div>
+
+<div class="act-month">
+  <div class="act-month-h">🗓️ 11月</div>
+  <div class="act-items">
+    <div class="act-item"><span class="ad">11.6</span><span class="at at-pass">通行证</span>小金牛通行证-迪亚波罗(超凡)</div>
+    <div class="act-item"><span class="ad">11.13</span><span class="at at-pass">扭蛋</span>扭蛋-全新紫色变身器</div>
+    <div class="act-item"><span class="ad">11.20</span><span class="at at-gacha">红卡</span>法多兰红卡卡池</div>
+    <div class="act-item"><span class="ad">11.20</span><span class="at at-frag">碎片</span>法多兰角色碎片活动</div>
+    <div class="act-item"><span class="ad">11.20</span><span class="at at-event">活动</span>大怪兽格斗+博伽茹(卓越)</div>
+    <div class="act-item"><span class="ad">11.27</span><span class="at at-sign">签到</span>签到德凯强力形态(卓越)</div>
+    <div class="act-item"><span class="ad">11.27</span><span class="at at-pass">通行证</span>黑暗奥特杀手·传说赛季通行证(传说) <span style="color:var(--success)">张智 · 暂定提前(原12.25)</span></div>
+    <div class="act-item"><span class="ad">11.27</span><span class="at at-pass">战令</span>传说战令 <span style="color:var(--success)">杨于扬</span></div>
+  </div>
+</div>
+
+<div class="act-month">
+  <div class="act-month-h">🗓️ 12月</div>
+  <div class="act-items">
+    <div class="act-item"><span class="ad">12.4</span><span class="at at-limited">限定</span>欧布暗耀奖池(超凡)</div>
+    <div class="act-item"><span class="ad">12.4</span><span class="at at-gacha">卡池</span>阿斯特拉回归大奖池</div>
+    <div class="act-item"><span class="ad">12.11</span><span class="at at-pass">付费</span>双十二30元宝藏活动</div>
+    <div class="act-item"><span class="ad">12.18</span><span class="at at-pass">通行证</span>军械库金谷桥通行证(超凡)</div>
+    <div class="act-item"><span class="ad">12.25</span><span class="at at-event">节日</span>圣诞活动</div>
+    <div class="act-item"><span class="ad">12.25</span><span class="at at-gacha">心愿</span>罗布进心愿池</div>
+  </div>
+</div>
+
+<div class="update-info">
+  数据源：更新日历Excel + 石头提供的角色制作人员排期表截图 | 监修规则：上线前14天提交版权方审核 | 制作周期：限定35天/传说56天/通行证42天/签到40天/酒馆21天
+  <br>更新于 2026.09.09 | 1.29通行证角色 斯兰星人→鲁格赛特(张智) | 欧布重光(9.4)已上线 | 活动日历8月~12月持续更新中
+</div>
+
+</body>
+</html>
