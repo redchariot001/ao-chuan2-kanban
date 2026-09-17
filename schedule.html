@@ -41,7 +41,7 @@ tr.today td{border-top:2px solid var(--acc);border-bottom:2px solid var(--acc);b
 
 <div class="alert">
   <b>📌 当前版本：8.14（已上线）</b> — 奈克萨斯成年形态(倪剑波)、塔伊兰特(张备羽) 已上线，已从排期中移除。
-  <br>剩余 <b>23条记录</b>，9月~次年2月待上线。<b>9.3变更：</b>新增星河之奕·塔尔塔罗斯版本+双人排位(10.16，李羽翔、张备羽)、星河之奕·新人专属赛季(10.30，李羽翔、唐志伟)、传说战令(11.27，杨于扬)；黑暗奥特杀手提前至11.27(张智)；博伽茹制作人变更为张备羽。
+  <br>剩余 <b>25条记录</b>，9月~次年2月待上线。<b>9.17变更：</b>提欧上线日 1.1→1.15；戴拿奇迹上线日 2.12→2.26；军械库金谷桥制作人变更为张备羽(原倪磊)；泰迦三重斯特利姆制作人变更为李羽翔(原倪磊)；新增系统节点 11.6打包测试、11.20全渠道更包。看板扩容至2027年2月底。
 </div>
 
 <div class="bar">
@@ -65,6 +65,7 @@ tr.today td{border-top:2px solid var(--acc);border-bottom:2px solid var(--acc);b
     <button data-f="type" data-v="钻石卡包">钻石卡包</button>
     <button data-f="type" data-v="战令">战令</button>
     <button data-f="type" data-v="活动">活动</button>
+    <button data-f="type" data-v="系统">系统</button>
   </div>
 </div>
 <legend>状态图例：
@@ -91,18 +92,20 @@ var DATA = [
 {"launch":"2026-10-30","launchShort":"10.30","weekday":"五","name":"星河之奕·新人专属赛季","type":"活动","rarity":"—","maker":"李羽翔、唐志伟","cycle":null,"note":"新人专属赛季模块","makeStart":"","reviewDDL":"2026-10-16","status":"far","statusLabel":"远期"},
 {"launch":"2026-10-30","launchShort":"10.30","weekday":"五","name":"银河斯特利姆","type":"限定","rarity":"超凡","maker":"倪剑波","cycle":35,"note":"","makeStart":"2026-09-25","reviewDDL":"2026-10-16","status":"far","statusLabel":"远期"},
 {"launch":"2026-11-06","launchShort":"11.6","weekday":"五","name":"迪亚波罗","type":"通行证","rarity":"超凡","maker":"张智","cycle":42,"note":"小金牛","makeStart":"2026-09-25","reviewDDL":"2026-10-23","status":"far","statusLabel":"远期"},
+{"launch":"2026-11-06","launchShort":"11.6","weekday":"五","name":"打包测试","type":"系统","rarity":"—","maker":"—","cycle":null,"note":"全渠道更包前置：6号更新后打包、13号交包","makeStart":"","reviewDDL":"—","status":"far","statusLabel":"系统节点"},
+{"launch":"2026-11-20","launchShort":"11.20","weekday":"五","name":"全渠道更包","type":"系统","rarity":"—","maker":"—","cycle":null,"note":"全渠道换包上线","makeStart":"","reviewDDL":"—","status":"far","statusLabel":"系统节点"},
 {"launch":"2026-11-20","launchShort":"11.20","weekday":"五","name":"博伽茹","type":"活动","rarity":"卓越","maker":"张备羽","cycle":null,"note":"大怪兽格斗·制作人已变更(原张智)","reviewDDL":"2026-11-06","status":"far","statusLabel":"远期"},
 {"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"德凯强力形态","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"原哉阿斯已替换","makeStart":"2026-10-18","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
 {"launch":"2026-12-04","launchShort":"12.4","weekday":"五","name":"欧布暗耀","type":"限定","rarity":"超凡","maker":"倪剑波","cycle":35,"note":"","makeStart":"2026-10-30","reviewDDL":"2026-11-20","status":"far","statusLabel":"远期"},
-{"launch":"2026-12-18","launchShort":"12.18","weekday":"五","name":"金古桥军械库定制","type":"通行证","rarity":"超凡","maker":"倪磊","cycle":42,"note":"红字标记","makeStart":"2026-11-06","reviewDDL":"2026-12-04","status":"far","statusLabel":"远期"},
+{"launch":"2026-12-18","launchShort":"12.18","weekday":"五","name":"军械库金谷桥","type":"通行证","rarity":"超凡","maker":"张备羽","cycle":42,"note":"制作人变更(原倪磊)","makeStart":"2026-11-06","reviewDDL":"2026-12-04","status":"far","statusLabel":"远期"},
 {"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"黑暗奥特杀手","type":"传说赛季通行证","rarity":"传说","maker":"张智","cycle":56,"note":"暂定提前至11.27(原12.25)","makeStart":"2026-10-02","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
 {"launch":"2026-11-27","launchShort":"11.27","weekday":"五","name":"传说战令","type":"战令","rarity":"传说","maker":"杨于扬","cycle":null,"note":"传说战令活动","makeStart":"","reviewDDL":"2026-11-13","status":"far","statusLabel":"远期"},
-{"launch":"2027-01-01","launchShort":"1.1","weekday":"五","name":"提欧","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"原戴拿奇迹已替换","makeStart":"2026-11-22","reviewDDL":"2026-12-18","status":"far","statusLabel":"远期"},
 {"launch":"2027-01-01","launchShort":"1.1","weekday":"五","name":"巴克西姆","type":"酒馆","rarity":"稀有","maker":"张备羽","cycle":21,"note":"","makeStart":"2026-12-11","reviewDDL":"2026-12-18","status":"far","statusLabel":"远期"},
-{"launch":"2027-01-08","launchShort":"1.8","weekday":"五","name":"泰迦三重斯特利姆","type":"限定","rarity":"传说","maker":"倪磊","cycle":56,"note":"黄底标记","makeStart":"2026-11-13","reviewDDL":"2026-12-25","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-08","launchShort":"1.8","weekday":"五","name":"泰迦三重斯特利姆","type":"限定","rarity":"传说","maker":"李羽翔","cycle":56,"note":"黄底标记·制作人变更(原倪磊)","makeStart":"2026-11-13","reviewDDL":"2026-12-25","status":"far","statusLabel":"远期"},
+{"launch":"2027-01-15","launchShort":"1.15","weekday":"五","name":"提欧","type":"签到","rarity":"卓越","maker":"李羽翔","cycle":40,"note":"原戴拿奇迹已替换·上线日1.1→1.15","makeStart":"2026-12-06","reviewDDL":"2027-01-01","status":"far","statusLabel":"远期"},
 {"launch":"2027-01-29","launchShort":"1.29","weekday":"五","name":"鲁格赛特","type":"通行证","rarity":"超凡","maker":"张智","cycle":42,"note":"原斯兰星人已替换","makeStart":"2026-12-18","reviewDDL":"2027-01-15","status":"far","statusLabel":"远期"},
 {"launch":"2027-01-29","launchShort":"1.29","weekday":"五","name":"凤凰梦比优斯","type":"钻石卡包","rarity":"传说","maker":"倪剑波","cycle":56,"note":"钻石卡包获取","makeStart":"2026-12-04","reviewDDL":"2027-01-15","status":"far","statusLabel":"远期"},
-{"launch":"2027-02-12","launchShort":"2.12","weekday":"五","name":"戴拿奇迹","type":"签到","rarity":"卓越","maker":"倪剑波","cycle":40,"note":"","makeStart":"2027-01-03","reviewDDL":"2027-01-29","status":"far","statusLabel":"远期"}
+{"launch":"2027-02-26","launchShort":"2.26","weekday":"五","name":"戴拿奇迹","type":"签到","rarity":"卓越","maker":"倪剑波","cycle":40,"note":"上线日2.12→2.26","makeStart":"2027-01-17","reviewDDL":"2027-02-12","status":"far","statusLabel":"远期"}
 ];
 var today = "2026-09-09";
 var fm = "ALL", ft = "ALL";
